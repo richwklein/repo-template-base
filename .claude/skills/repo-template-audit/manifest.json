@@ -1,0 +1,42 @@
+{
+  "$comment": "Tracked-file manifest for repo-template-audit. Updated as the templates evolve.",
+  "version": 0,
+  "flavors": {
+    "base": {
+      "template_repo": "richwklein/repo-template-base",
+      "exact_match": [
+        ".editorconfig",
+        ".gitattributes",
+        ".github/CODEOWNERS",
+        ".github/PULL_REQUEST_TEMPLATE.md",
+        ".github/dependabot.yml",
+        ".github/ISSUE_TEMPLATE/config.yaml",
+        ".github/ISSUE_TEMPLATE/01-idea.yaml",
+        ".github/ISSUE_TEMPLATE/02-bug.yaml",
+        ".github/ISSUE_TEMPLATE/03-enhancement.yaml",
+        ".github/ISSUE_TEMPLATE/04-task.yaml",
+        ".github/workflows/code-codeql.yaml",
+        ".vscode/extensions.json",
+        ".vscode/settings.json",
+        "docs/BRANCH_PROTECTION.md",
+        "docs/REPO_SETTINGS.yaml",
+        "AGENTS.md",
+        "CONTRIBUTING.md",
+        "SECURITY.md",
+        "LICENSE",
+        ".claude/skills/repo-template-audit/SKILL.md",
+        ".claude/skills/repo-template-audit/manifest.json"
+      ],
+      "presence_only": ["CODE_OF_CONDUCT.md"],
+      "schema_match": []
+    },
+    "astro": {
+      "$comment": "Populated when repo-template-astro is created.",
+      "template_repo": "richwklein/repo-template-astro",
+      "exact_match": [],
+      "presence_only": [],
+      "schema_match": []
+    }
+  },
+  "settings_manifest_path": "docs/REPO_SETTINGS.yaml"
+}
