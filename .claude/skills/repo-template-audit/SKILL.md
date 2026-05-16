@@ -96,7 +96,7 @@ The skill's own files (`SKILL.md`, `manifest.json`, `lib/audit.py`) are tracked 
 ## Implementation notes
 
 - Canonical settings in `lib/audit.py` mirror `docs/REPO_SETTINGS.yaml`. Both files are tracked exactly in the manifest, so any drift between them surfaces in File drift on the next audit run. Update both files together.
-- The script fetches the manifest from `richwklein/repo-template-base` on every run via `gh api`. No caching. Audits always reflect the *current* canonical template.
+- The script fetches the manifest from `richwklein/repo-template-base` on every run via `gh api`. No caching. Audits always reflect the _current_ canonical template.
 - `code_scanning_default_setup` is read from `GET /repos/{o}/{r}/code-scanning/default-setup` (not the main repo endpoint). The script normalizes its `configured` / `not-configured` states to `enabled` / `disabled` for comparison.
 
 ## Flavor detection (`repo_flavor`)
