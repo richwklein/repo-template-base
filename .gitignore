@@ -22,6 +22,9 @@ coverage/
 .env.*
 !.env.example
 
+# local-only tool configs (Claude Code, editor overlays, etc.)
+settings.local.*
+
 # worktrees
 .worktrees/
 
