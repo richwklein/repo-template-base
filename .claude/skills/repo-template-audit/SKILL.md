@@ -98,3 +98,14 @@ The skill's own files (`SKILL.md`, `manifest.json`, `lib/audit.py`) are tracked 
 - Canonical settings in `lib/audit.py` mirror `docs/REPO_SETTINGS.yaml`. Both files are tracked exactly in the manifest, so any drift between them surfaces in File drift on the next audit run. Update both files together.
 - The script fetches the manifest from `richwklein/repo-template-base` on every run via `gh api`. No caching. Audits always reflect the *current* canonical template.
 - `code_scanning_default_setup` is read from `GET /repos/{o}/{r}/code-scanning/default-setup` (not the main repo endpoint). The script normalizes its `configured` / `not-configured` states to `enabled` / `disabled` for comparison.
+
+## Flavor detection (`repo_flavor`)
+
+Every descendant repo's local `manifest.json` carries a top-level `repo_flavor` field declaring its flavor (`"base"` or `"astro"`). The audit reads this field first and uses it as the authoritative flavor. If absent or invalid, the script falls back to detecting `astro.config.*` presence.
+
+The `repo_flavor` field is the **only** key in `manifest.json` that's allowed to differ from canonical — every other key must match the base template byte-for-byte. The audit excludes `repo_flavor` from the manifest exact-match comparison.
+
+When migrating an existing repo into the standardization (Phase 6 of the plan), copy the manifest from the appropriate template and set `repo_flavor` to match:
+
+- Repos following `repo-template-base` only: `"repo_flavor": "base"`
+- Repos following `repo-template-astro`: `"repo_flavor": "astro"`

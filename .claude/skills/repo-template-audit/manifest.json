@@ -1,6 +1,7 @@
 {
-  "$comment": "Tracked-file manifest for repo-template-audit. The base manifest is the single source of truth; astro's copy must be identical.",
+  "$comment": "Tracked-file manifest for repo-template-audit. All keys except `repo_flavor` are canonical and must match the base template byte-for-byte. `repo_flavor` is per-repo: it declares which flavor's file lists this repo follows. The audit ignores `repo_flavor` when diffing manifest.json against canonical.",
   "version": 1,
+  "repo_flavor": "base",
   "flavors": {
     "base": {
       "template_repo": "richwklein/repo-template-base",

@@ -99,8 +99,17 @@ def fetch_canonical(repo: str, path: str) -> bytes | None:
 
 # ---- Target detection -------------------------------------------------------
 
+LOCAL_MANIFEST_PATH = ".claude/skills/repo-template-audit/manifest.json"
+
+
 def detect_target(target: Path) -> tuple[str, str]:
-    """Return (owner/repo, flavor) for the target directory."""
+    """Return (owner/repo, flavor) for the target directory.
+
+    Flavor is resolved in order of precedence:
+      1. `repo_flavor` field in the local manifest.json (if present)
+      2. `astro.config.*` file presence -> "astro"
+      3. default "base"
+    """
     if not (target / ".git").is_dir():
         sys.exit(f"error: {target} is not a git repo")
     try:
@@ -117,15 +126,44 @@ def detect_target(target: Path) -> tuple[str, str]:
         sys.exit(f"error: could not parse owner/repo from remote: {remote}")
     repo = m.group(1)
 
-    flavor = "base"
-    for ext in ("ts", "mjs", "js", "mts"):
-        if (target / f"astro.config.{ext}").is_file():
-            flavor = "astro"
-            break
+    flavor = None
+    local_manifest = target / LOCAL_MANIFEST_PATH
+    if local_manifest.is_file():
+        try:
+            declared = json.loads(local_manifest.read_text()).get("repo_flavor")
+            if declared in ("base", "astro"):
+                flavor = declared
+        except json.JSONDecodeError:
+            pass
+
+    if flavor is None:
+        flavor = "base"
+        for ext in ("ts", "mjs", "js", "mts"):
+            if (target / f"astro.config.{ext}").is_file():
+                flavor = "astro"
+                break
+
     return repo, flavor
 
 
 # ---- File drift -------------------------------------------------------------
+
+def files_equivalent(path: str, canonical: bytes, local: bytes) -> bool:
+    """Byte-equal — except manifest.json, where the per-repo `repo_flavor`
+    key is allowed to differ. Everything else in the manifest must match."""
+    if canonical == local:
+        return True
+    if path == LOCAL_MANIFEST_PATH:
+        try:
+            c = json.loads(canonical)
+            l = json.loads(local)
+            c.pop("repo_flavor", None)
+            l.pop("repo_flavor", None)
+            return c == l
+        except json.JSONDecodeError:
+            return False
+    return False
+
 
 def diff_snippet(canonical: bytes, local: bytes, path: str) -> str:
     try:
@@ -167,9 +205,10 @@ def audit_files(target: Path, flavor: str, manifest: dict) -> list[str]:
         if canonical is None:
             canonical_missing.append(path)
             continue
-        if canonical == local_path.read_bytes():
+        local_bytes = local_path.read_bytes()
+        if files_equivalent(path, canonical, local_bytes):
             continue
-        drifted.append((path, diff_snippet(canonical, local_path.read_bytes(), path)))
+        drifted.append((path, diff_snippet(canonical, local_bytes, path)))
 
     presence_missing = [(p, "presence_only") for p in presence if not (target / p).is_file()]
 
