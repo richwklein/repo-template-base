@@ -20,9 +20,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Override the matrix per-repo. Supported values:
-        #   javascript-typescript, python, swift, ruby, go, java-kotlin, csharp, c-cpp
-        language: ['javascript-typescript']
+        # Override the matrix per-repo. 'actions' analyzes the workflow files
+        # themselves and is always safe. Add languages this repo actually contains:
+        #   actions, javascript-typescript, python, swift, ruby, go, java-kotlin, csharp, c-cpp
+        # Note: each matrix value registers its own status check (e.g. `analyze (actions)`).
+        # Update branch protection rulesets to match the values you list here.
+        language: ['actions']
     steps:
       - name: Checkout
         uses: actions/checkout@v4
