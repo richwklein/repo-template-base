@@ -22,7 +22,7 @@ Click **Use this template → Create a new repository** on GitHub, then run thro
 
 ## Audit drift
 
-Install the audit skill (`npx skills add richwklein/skills`), then run `/repo-template-audit richwklein/repo-template-base` from a Claude Code session to check whether files and GitHub settings still match this template.
+Install the audit skill (`npx skills add richwklein/skills`), then run `/repo-template-audit richwklein/repo-template-base` from an agent coding session to check whether files and GitHub settings still match this template.
 
 ## Conventions
 
