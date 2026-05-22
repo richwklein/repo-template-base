@@ -22,7 +22,7 @@ Click **Use this template → Create a new repository** on GitHub, then run thro
 
 ## Audit drift
 
-Run `/repo-template-audit` from a Claude Code session in the repo directory to check whether tracked files and GitHub repo settings still match the canonical sources. The skill ships with this template at `.claude/skills/repo-template-audit/`.
+Install the audit skill (`npx skills add richwklein/skills`), then run `/repo-template-audit richwklein/repo-template-base` from a Claude Code session to check whether files and GitHub settings still match this template.
 
 ## Conventions
 
