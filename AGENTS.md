@@ -25,4 +25,4 @@ Before pushing, the workflows that gate merge are `lint`, `test`, and `analyze` 
 
 Install the audit skill: `npx skills add richwklein/skills`
 
-Run `/repo-template-audit richwklein/repo-template-base` to check that template-tracked files and GitHub repo settings still match this template.
+Run `/repo-template-audit richwklein/repo-template-base` to check that template-tracked files and GitHub repo settings still match the template.
