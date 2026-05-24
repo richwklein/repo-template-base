@@ -2,7 +2,7 @@
 
 Language-agnostic GitHub repository template for [@richwklein](https://github.com/richwklein) projects.
 
-Universal conventions live here: GitHub issue/PR templates, CODEOWNERS, dependabot config for GitHub Actions, CodeQL workflow, VSCode recommendations, editorconfig, license, security policy, code of conduct, and the canonical repo-settings manifest.
+Universal conventions live here: GitHub issue/PR templates, CODEOWNERS, dependabot config for GitHub Actions, CodeQL workflow, VSCode recommendations, editorconfig, license, security policy, and code of conduct.
 
 Framework-specific templates extend this one. The Astro/TypeScript variant lives at [richwklein/repo-template-astro](https://github.com/richwklein/repo-template-astro).
 
@@ -15,8 +15,7 @@ Click **Use this template → Create a new repository** on GitHub, then run thro
 - [ ] **Update `README.md`** with your project description (replace this content).
 - [ ] **Update `.vscode/settings.json`** — add project-specific entries to `cSpell.words` if needed.
 - [ ] **Adjust `.github/workflows/code-codeql.yaml`** — set the `language` matrix to match your project (e.g., `python`, `swift`). For Bash-only repos, delete this workflow and use `actionlint` instead.
-- [ ] **Apply repo settings** — see [`docs/REPO_SETTINGS.yaml`](docs/REPO_SETTINGS.yaml) for the canonical values and apply them via `gh api` (or the audit skill).
-- [ ] **Apply branch protection** — follow [`docs/BRANCH_PROTECTION.md`](docs/BRANCH_PROTECTION.md). Add the ruleset **after** the first PR has run so the status check names are registered.
+- [ ] **Apply repo settings and branch protection** — run `/repo-template-audit richwklein/repo-template-base` from a Claude Code session; the audit skill compares this repo's live GitHub settings and reports any drift. Add the branch ruleset **after** the first PR has run so the status check names are registered.
 - [ ] **If the repo cuts releases**: add `release-please.yaml` workflow + `release-please-config.json` + `.release-please-manifest.json`. See the astro template for the canonical setup.
 - [ ] **Verify CODEOWNERS** — the default `@richwklein` may need to change for repos under a different owner (e.g., `@helpinghandwc/maintainers`).
 
