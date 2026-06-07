@@ -69,10 +69,6 @@ jobs:
         id: changes
         uses: ./.github/actions/detect-relevant-changes
 
-      - name: No relevant changes — noop
-        if: steps.changes.outputs.relevant != 'true'
-        run: echo "::notice::No relevant changes detected; skipping CodeQL analyze (${{ matrix.language }})."
-
       - name: Initialize CodeQL
         if: steps.changes.outputs.relevant == 'true'
         uses: github/codeql-action/init@v4.36.0
