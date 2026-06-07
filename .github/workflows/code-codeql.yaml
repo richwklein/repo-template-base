@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [main]
   schedule:
-    - cron: '23 4 * * 1' # weekly, Monday 04:23 UTC
+    - cron: "23 4 * * 1" # weekly, Monday 04:23 UTC
 
 permissions:
   actions: read
@@ -14,7 +14,24 @@ permissions:
   security-events: write
 
 jobs:
+  changes:
+    name: detect changes
+    runs-on: ubuntu-latest
+    outputs:
+      relevant: ${{ steps.filter.outputs.workflows }}
+    steps:
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            workflows:
+              - '.github/workflows/**'
+
   analyze:
+    needs: changes
+    # Job-level conditional so skipped runs report Success (not Pending).
+    # Workflow-level path filters leave required checks hanging in Pending state.
+    if: needs.changes.outputs.relevant == 'true' || github.event_name == 'schedule'
     name: analyze
     runs-on: ${{ matrix.runner }}
     strategy:
@@ -28,6 +45,12 @@ jobs:
         #   csharp, java-kotlin, c-cpp  -> ubuntu-latest
         #   swift                       -> macos-latest
         #     (Swift extractor only runs on macOS)
+        #
+        # PATH FILTERS: When adding a language entry here, also add its
+        # source paths to the `changes` job filter above so the analyze
+        # job runs when those files change. Examples:
+        #   javascript-typescript / python / ruby / go -> 'src/**'
+        #   swift / c-cpp / java-kotlin / csharp       -> 'Sources/**' or 'src/**'
         #
         # COMPILED LANGUAGES (swift, c-cpp, java-kotlin, csharp) require a
         # build step BEFORE 'Perform CodeQL analysis' so the extractor can
@@ -59,4 +82,4 @@ jobs:
       - name: Perform CodeQL analysis
         uses: github/codeql-action/analyze@v4.36.0
         with:
-          category: '/language:${{ matrix.language }}'
+          category: "/language:${{ matrix.language }}"
