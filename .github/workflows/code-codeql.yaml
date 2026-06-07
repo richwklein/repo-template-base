@@ -29,9 +29,6 @@ jobs:
 
   analyze:
     needs: changes
-    # Job-level conditional so skipped runs report Success (not Pending).
-    # Workflow-level path filters leave required checks hanging in Pending state.
-    if: needs.changes.outputs.relevant == 'true' || github.event_name == 'schedule'
     name: analyze
     runs-on: ${{ matrix.runner }}
     strategy:
@@ -71,15 +68,22 @@ jobs:
           - language: actions
             runner: ubuntu-latest
     steps:
+      # Steps are conditionally skipped rather than the job, so the
+      # matrix-expanded status check (e.g. "analyze (actions, ubuntu-latest)")
+      # is always registered. A job-level skip leaves that check unreported,
+      # which blocks PRs that require it.
       - name: Checkout
+        if: needs.changes.outputs.relevant == 'true' || github.event_name == 'schedule'
         uses: actions/checkout@v6
 
       - name: Initialize CodeQL
+        if: needs.changes.outputs.relevant == 'true' || github.event_name == 'schedule'
         uses: github/codeql-action/init@v4.36.0
         with:
           languages: ${{ matrix.language }}
 
       - name: Perform CodeQL analysis
+        if: needs.changes.outputs.relevant == 'true' || github.event_name == 'schedule'
         uses: github/codeql-action/analyze@v4.36.0
         with:
           category: "/language:${{ matrix.language }}"
