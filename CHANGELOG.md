@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/richwklein/repo-template-base/compare/repo-template-base-v0.2.0...repo-template-base-v0.3.0) (2026-06-14)
+
+
+### Features
+
+* **github:** add type-specific PR templates and branch-prefix labeler ([#26](https://github.com/richwklein/repo-template-base/issues/26)) ([b9b794f](https://github.com/richwklein/repo-template-base/commit/b9b794f2fd65d68f25d3346db3841e82aee70c83))
+
 ## [0.2.0](https://github.com/richwklein/repo-template-base/compare/repo-template-base-v0.1.0...repo-template-base-v0.2.0) (2026-06-07)
 
 
