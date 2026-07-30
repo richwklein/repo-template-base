@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/richwklein/repo-template-base/compare/repo-template-base-v0.3.0...repo-template-base-v0.4.0) (2026-07-30)
+
+
+### Features
+
+* surface more commit types in release-please changelog ([#36](https://github.com/richwklein/repo-template-base/issues/36)) ([d9c7f45](https://github.com/richwklein/repo-template-base/commit/d9c7f452e95d3b3879ba0cada8e2ba2c81f759f4))
+
 ## [0.3.0](https://github.com/richwklein/repo-template-base/compare/repo-template-base-v0.2.0...repo-template-base-v0.3.0) (2026-06-14)
 
 
