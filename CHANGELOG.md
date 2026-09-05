@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.4.1](https://github.com/richwklein/repo-template-base/compare/v0.4.0...v0.4.1) (2026-09-05)
+
+
+### Bug Fixes
+
+* pin include-component-in-tag to false in release-please config ([#42](https://github.com/richwklein/repo-template-base/issues/42)) ([96dc627](https://github.com/richwklein/repo-template-base/commit/96dc627381a0ffa405f8c04e8eb06b208c37f7d0))
+
+
+### Documentation
+
+* tag code fences with a language ([#46](https://github.com/richwklein/repo-template-base/issues/46)) ([6bdf789](https://github.com/richwklein/repo-template-base/commit/6bdf7898f48ef3e1b5667887465fefa5c4258b95))
+
 ## [0.4.0](https://github.com/richwklein/repo-template-base/compare/repo-template-base-v0.3.0...repo-template-base-v0.4.0) (2026-07-30)
 
 
