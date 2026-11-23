@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.2](https://github.com/richwklein/repo-template-base/compare/v0.4.1...v0.4.2) (2026-11-23)
+
+
+### Miscellaneous Chores
+
+* **deps:** update shared GitHub Actions ([#52](https://github.com/richwklein/repo-template-base/issues/52)) ([5085bd1](https://github.com/richwklein/repo-template-base/commit/5085bd1bc47ef09da249ca4757e0f53382a6000a))
+
 ## [0.4.1](https://github.com/richwklein/repo-template-base/compare/v0.4.0...v0.4.1) (2026-09-05)
 
 
